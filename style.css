@@ -1,0 +1,110 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 100px;
+
+  /* x and o size */
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+  margin: 0;
+}
+
+.board {
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+
+  justify-content: center;
+  align-content: center;
+
+  /* center inside the cell (x or o marker) */
+  justify-items: center;
+  align-items: center;
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid #000;
+
+  /* show cell content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+/* remove top borders */
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+/* remove left borders */
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+/* remove right borders */
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+/* remove bottom borders */
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:last-child {
+  border-bottom: none;
+}
+
+/* render x mark */
+.cell.x::before,
+.cell.x::after {
+  content: '';
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+  background-color: #333;
+
+  position: absolute;
+}
+
+.cell.x::before {
+  /* rotate first bar to 45degress */
+  transform: rotate(45deg);
+}
+
+.cell.x::after {
+  /* rotate second bar to the opposite direction */
+  transform: rotate(-45deg);
+}
+/* end render x mark */
+
+/* render o mark */
+.cell.o::before,
+.cell.o::after {
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+}
+
+.cell.o::before {
+  /* make first circle big and black */
+  width: var(--mark-size);
+  height: var(--mark-size);
+  background-color: #333;
+}
+
+.cell.o::after {
+  /* make second circle slightly small and white */
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: #fff;
+}
